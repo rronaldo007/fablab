@@ -1,9 +1,7 @@
 doctrine_migrations:
     migrations_paths:
-        'DoctrineMigrations': '%kernel.project_dir%/migrations'
-    enable_profiler: false
-    storage:
-        table_storage:
-            table_name: 'migration_versions'
-            version_column_name: 'version'
-            executed_at_column_name: 'executed_at'
+        DoctrineMigrations: '%kernel.project_dir%/migrations'
+    # Remove or comment out the storage section below
+    # storage:
+    #     table_storage:
+    #         table_name: migration_versions_new

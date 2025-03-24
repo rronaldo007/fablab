@@ -34,6 +34,9 @@ class User
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Role $role = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?CandidateProfile $yes = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,28 @@ class User
     public function setRole(?Role $role): static
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getYes(): ?CandidateProfile
+    {
+        return $this->yes;
+    }
+
+    public function setYes(?CandidateProfile $yes): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($yes === null && $this->yes !== null) {
+            $this->yes->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($yes !== null && $yes->getUser() !== $this) {
+            $yes->setUser($this);
+        }
+
+        $this->yes = $yes;
 
         return $this;
     }
