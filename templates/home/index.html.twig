@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Welcome to {{ project_info.name }}!{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">Welcome to {{ project_info.name }}!</h1>
+                    <p class="card-text">Your Symfony application with {{ project_info.cssFramework }} is working correctly.</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://symfony.com/doc/current/index.html" class="btn btn-primary">Symfony Documentation</a>
+                        <a href="{{ project_info.cssFramework == "Bootstrap" ? "https://getbootstrap.com/docs/5.3/getting-started/introduction/" : "https://tailwindcss.com/docs" }}" class="btn btn-secondary">{{ project_info.cssFramework }} Documentation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

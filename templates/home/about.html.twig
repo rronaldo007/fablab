@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}About - fablab{% endblock %}
+
+{% block body %}
+    <div class="{{ ( "1" == "1" ) ? "card" : "bg-white shadow overflow-hidden rounded-lg" }}">
+        <div class="{{ ( "1" == "1" ) ? "card-header" : "px-4 py-5 border-b border-gray-200 font-medium text-gray-900 bg-gray-50" }}">
+            About fablab
+        </div>
+        <div class="{{ ( "1" == "1" ) ? "card-body" : "px-4 py-5" }}">
+            <p>This is the about page for fablab.</p>
+            <p>Your application is now set up and ready to be customized.</p>
+        </div>
+    </div>
+{% endblock %}
