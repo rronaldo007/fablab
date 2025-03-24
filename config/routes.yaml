@@ -1,3 +1,27 @@
-app_home:
-    path: /
-    controller: App\Controller\HomeController::index
+# config/routes.yaml
+
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute  # Use 'annotation' if you're on Symfony 5.x with annotation system
+
+app_candidate:
+    path: /candidate
+    controller: App\Controller\CandidateController::index
+
+app_contact:
+    path: /contact
+    controller: App\Controller\ContactController::index
+
+app_presentation:
+    path: /presentation
+    controller: App\Controller\PresentationController::index
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+app_register:
+    path: /register
+    controller: App\Controller\SecurityController::register

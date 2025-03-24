@@ -1,20 +1,103 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Welcome to {{ project_info.name }}!{% endblock %}
+{% block title %}Accueil - Fablab Électron{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-12 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="card-title">Welcome to {{ project_info.name }}!</h1>
-                    <p class="card-text">Your Symfony application with {{ project_info.cssFramework }} is working correctly.</p>
-                    <div class="d-flex gap-2">
-                        <a href="https://symfony.com/doc/current/index.html" class="btn btn-primary">Symfony Documentation</a>
-                        <a href="{{ project_info.cssFramework == "Bootstrap" ? "https://getbootstrap.com/docs/5.3/getting-started/introduction/" : "https://tailwindcss.com/docs" }}" class="btn btn-secondary">{{ project_info.cssFramework }} Documentation</a>
+    <div class="container mt-5">
+        <section class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold">Bienvenue au Fablab Électron</h1>
+                <p class="lead">Un laboratoire d'excellence pour les chercheurs en robotique de demain</p>
+                <hr class="my-4">
+                <p>Sponsorisé par BARAM, leader français de la robotique industrielle, Électron est un fablab associatif dédié à la recherche de pointe en robotique.</p>
+                <p>Réservé aux étudiants les plus prometteurs dans le domaine de la robotique, notre laboratoire sélectionne chaque année uniquement trois candidats d'exception.</p>
+                <a class="btn btn-primary btn-lg mt-3" href="{{ path('candidate_index') }}" role="button">Postuler au concours</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ asset('images/robot-lab.jpg') }}" alt="Laboratoire de robotique" class="img-fluid rounded shadow-lg">
+            </div>
+        </section>
+
+        <section class="mt-5 pt-5 border-top">
+            <h2 class="text-center mb-4">Notre mission</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow">
+                        <div class="card-body text-center">
+                            <i class="fas fa-robot fa-3x mb-3 text-primary"></i>
+                            <h3 class="card-title h5">Recherche d'excellence</h3>
+                            <p class="card-text">Nous accompagnons les meilleurs étudiants dans leurs projets de recherche en robotique avancée.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow">
+                        <div class="card-body text-center">
+                            <i class="fas fa-cogs fa-3x mb-3 text-primary"></i>
+                            <h3 class="card-title h5">Technologies de pointe</h3>
+                            <p class="card-text">Accès à des équipements exclusifs comme notre imprimante 3D à fusion métallique et notre calculateur quantique.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow">
+                        <div class="card-body text-center">
+                            <i class="fas fa-graduation-cap fa-3x mb-3 text-primary"></i>
+                            <h3 class="card-title h5">Parcours d'excellence</h3>
+                            <p class="card-text">Un accompagnement durant l'intégralité du cursus académique des chercheurs sélectionnés.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section class="mt-5 pt-5 border-top">
+            <h2 class="text-center mb-4">Derniers projets de recherche</h2>
+            <div class="row">
+                {% for i in 1..3 %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow">
+                            <img src="{{ asset('images/project-' ~ i ~ '.jpg') }}" class="card-img-top" alt="Projet de recherche">
+                            <div class="card-body">
+                                <h5 class="card-title">Projet de recherche innovant</h5>
+                                <p class="card-text">Description du projet de recherche mené par nos membres au sein du fablab Électron.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="mt-5 pt-5 border-top">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="mb-4">Partenaire principal</h2>
+                    <img src="{{ asset('images/baram-logo.png') }}" alt="BARAM" class="img-fluid mb-3" style="max-width: 200px;">
+                    <p>BARAM, leader français de la robotique industrielle, est le sponsor principal du fablab Électron. Spécialiste des robots fixes IRAs et mobiles AGVs et AMRs, BARAM étend son activité dans les androïdes professionnels, notamment dans le domaine médical.</p>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mb-4">Calendrier du concours</h2>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">Concours {{ "now"|date("Y") }}/{{ "now"|date("Y")+1 }}</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Ouverture des candidatures
+                                    <span class="badge bg-primary rounded-pill">1 Sept. {{ "now"|date("Y") }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Clôture des candidatures
+                                    <span class="badge bg-primary rounded-pill">30 Oct. {{ "now"|date("Y") }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Annonce des résultats
+                                    <span class="badge bg-primary rounded-pill">15 Déc. {{ "now"|date("Y") }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 {% endblock %}

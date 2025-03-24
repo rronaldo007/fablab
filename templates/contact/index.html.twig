@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact - Fablab Électron{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="mb-4">Contact</h1>
+                <p class="lead mb-5">Une question sur le Fablab Électron ou le processus de candidature ? N'hésitez pas à nous contacter.</p>
+
+                <div class="card shadow mb-5">
+                    <div class="card-body">
+                        <h2 class="card-title h4 mb-4">Formulaire de contact</h2>
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="nom" class="form-label">Nom *</label>
+                                    <input type="text" class="form-control" id="nom" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="prenom" class="form-label">Prénom *</label>
+                                    <input type="text" class="form-control" id="prenom" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="organisation" class="form-label">Organisation</label>
+                                <input type="text" class="form-control" id="organisation">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message *</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="privacy_policy" required>
+                                <label class="form-check-label" for="privacy_policy">
+                                    J'accepte que mes données soient traitées conformément à la politique de confidentialité
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h4 class="mb-0 h5">Informations pratiques</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="mb-3">Adresse</h5>
+                        <p class="mb-4">
+                            Association One-Baram<br>
+                            Fablab Électron<br>
+                            123 Avenue de la Robotique<br>
+                            75013 Paris, France
+                        </p>
+
+                        <h5 class="mb-3">Contact</h5>
+                        <p class="mb-1"><strong>Téléphone :</strong> +33 (0)1 23 45 67 89</p>
+                        <p class="mb-4"><strong>Email :</strong> contact@fablab-electron.fr</p>
+
+                        <h5 class="mb-3">Horaires du bureau</h5>
+                        <p class="mb-1">Lundi au vendredi : 9h00 - 18h00</p>
+                        <p class="mb-4">Samedi : Sur rendez-vous uniquement</p>
+
+                        <h5 class="mb-3">Réseaux sociaux</h5>
+                        <div class="d-flex gap-3 mb-3">
+                            <a href="#" class="text-dark fs-4"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-dark fs-4"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-dark fs-4"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow">
+                    <div class="card-header bg-dark text-white">
+                        <h4 class="mb-0 h5">Localisation</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.975468537357!2d2.3650696156740357!3d48.83754197928477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDUwJzE1LjIiTiAywrAyMScxOC4zIkU!5e0!3m2!1sfr!2sfr!4v1619705114569!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="mt-5 pt-5 border-top">
+            <h2 class="mb-4">Questions fréquentes</h2>
+            <div class="accordion" id="accordionContact">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactOne" aria-expanded="false" aria-controls="collapseContactOne">
+                            Comment puis-je visiter le Fablab Électron ?
+                        </button>
+                    </h2>
+                    <div id="collapseContactOne" class="accordion-collapse collapse" data-bs-parent="#accordionContact">
+                        <div class="accordion-body">
+                            Le Fablab Électron n'est pas ouvert au public. Les visites sont réservées aux candidats présélectionnés et aux partenaires académiques et industriels. Pour organiser une visite, veuillez nous contacter par email avec vos informations et le motif de votre demande.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactTwo" aria-expanded="false" aria-controls="collapseContactTwo">
+                            Comment devenir partenaire du Fablab Électron ?
+                        </button>
+                    </h2>
+                    <div id="collapseContactTwo" class="accordion-collapse collapse" data-bs-parent="#accordionContact">
+                        <div class="accordion-body">
+                            Nous sommes ouverts aux partenariats avec des entreprises et des institutions académiques. Pour discuter d'une collaboration potentielle, veuillez nous contacter par email avec une présentation de votre organisation et vos propositions de partenariat.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContactThree" aria-expanded="false" aria-controls="collapseContactThree">
+                            Comment obtenir plus d'informations sur la procédure de candidature ?
+                        </button>
+                    </h2>
+                    <div id="collapseContactThree" class="accordion-collapse collapse" data-bs-parent="#accordionContact">
+                        <div class="accordion-body">
+                            Toutes les informations concernant la procédure de candidature sont disponibles sur notre page dédiée. Si vous avez des questions spécifiques après avoir consulté cette page, n'hésitez pas à nous contacter via le formulaire ci-dessus.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

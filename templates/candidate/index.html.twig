@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Présentation - Fablab Électron{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row mb-5">
+            <div class="col-md-8">
+                <h1 class="mb-4">Présentation du Fablab Électron</h1>
+                <p class="lead">Un laboratoire d'élite pour les futurs leaders de la robotique</p>
+                <p>Électron est un fablab associatif sponsorisé par BARAM, le leader français de la robotique industrielle. Notre mission est d'offrir aux étudiants les plus talentueux un environnement de recherche exceptionnel, équipé des technologies les plus avancées.</p>
+                <p>Véritable extension du laboratoire de recherche de BARAM, Électron est exclusivement réservé aux étudiants inscrits dans un cursus lié de près à la robotique, sélectionnés sur concours après un processus rigoureux.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Chiffres clés</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Année de création
+                                <span class="badge bg-primary rounded-pill">2020</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Chercheurs actifs
+                                <span class="badge bg-primary rounded-pill">20</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Places par an
+                                <span class="badge bg-primary rounded-pill">3</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Équipements high-tech
+                                <span class="badge bg-primary rounded-pill">4+</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="mb-5">
+            <h2 class="mb-4">Notre Infrastructure</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow">
+                        <img src="{{ asset('images/3d-printer.jpg') }}" class="card-img-top" alt="Imprimante 3D à fusion métallique">
+                        <div class="card-body">
+                            <h5 class="card-title">Imprimante 3D à fusion métallique</h5>
+                            <p class="card-text">Notre imprimante 3D de pointe permet de créer des prototypes métalliques de haute précision, essentiels pour les projets de robotique avancée.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow">
+                        <img src="{{ asset('images/quantum-computer.jpg') }}" class="card-img-top" alt="Calculateur quantique à impulsion">
+                        <div class="card-body">
+                            <h5 class="card-title">Calculateur quantique à impulsion</h5>
+                            <p class="card-text">Un des rares calculateurs quantiques disponibles en France pour la recherche universitaire, offrant des capacités de calcul exceptionnelles.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow">
+                        <img src="{{ asset('images/extruder.jpg') }}" class="card-img-top" alt="Extrudeur nucléaire de nanotubes">
+                        <div class="card-body">
+                            <h5 class="card-title">Extrudeur nucléaire de nanotubes</h5>
+                            <p class="card-text">Cet équipement de pointe permet la création de nanotubes de carbone pour des applications en micro-robotique et en matériaux intelligents.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow">
+                        <img src="{{ asset('images/laser-collider.jpg') }}" class="card-img-top" alt="Micro-collisionneur laser">
+                        <div class="card-body">
+                            <h5 class="card-title">Micro-collisionneur laser</h5>
+                            <p class="card-text">Notre micro-collisionneur laser permet d'étudier les interactions à l'échelle moléculaire, crucial pour le développement de nouveaux matériaux.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-5" id="alumni">
+            <h2 class="mb-4">Les anciens membres</h2>
+
+            {% for year in 2020..("now"|date("Y")) %}
+                <h3 class="mb-3">Promotion {{ year }}</h3>
+                <div class="row">
+                    {% for i in 1..3 %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nom Prénom</h5>
+                                    <p class="mb-1"><strong>École :</strong> École Polytechnique</p>
+                                    <p class="mb-1"><strong>Cursus :</strong> Ingénieur</p>
+                                    <p class="mb-1"><strong>Spécialité :</strong> Robotique médicale</p>
+                                    <p class="mb-1"><strong>Durée :</strong> 3 ans</p>
+                                    <p class="mb-1"><strong>Thème de recherche :</strong> Robots chirurgicaux autonomes</p>
+                                    <p class="mb-1"><strong>Prix :</strong> Prix de l'innovation CNRS 2023</p>
+                                    <p class="mb-0"><strong>Recherche actuelle :</strong> Interfaces cerveau-machine pour le contrôle de prothèses</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </section>
+
+        <section class="mb-5">
+            <h2 class="mb-4">Processus de sélection</h2>
+            <div class="card shadow">
+                <div class="card-body">
+                    <p>Notre processus de sélection rigoureux assure que seuls les candidats les plus prometteurs rejoignent notre laboratoire. Chaque année, nous sélectionnons seulement trois candidats parmi tous les postulants.</p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="h5 card-title">Étape #1</h3>
+                                    <p class="card-text">Inscription initiale et validation par email</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="h5 card-title">Étape #2</h3>
+                                    <p class="card-text">Vérification des informations académiques et des documents</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 bg-light">
+                                <div class="card-body text-center">
+                                    <h3 class="h5 card-title">Étape #3</h3>
+                                    <p class="card-text">Présentation du projet de recherche et évaluation par le jury</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{{ path('candidate_index') }}" class="btn btn-primary">Postuler maintenant</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
