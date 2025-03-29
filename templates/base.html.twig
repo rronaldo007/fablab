@@ -1,77 +1,103 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-    <nav class="container navbar navbar-expand-xl navbar-dark" style="background: linear-gradient(90deg, #343a40, #212529);">
-        <div class="container">
-            <a class="navbar-brand" href="{{ path('home_index') }}">Fablab Électron</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav me-auto">
-                    <a class="nav-link active" href="{{ path('home_index') }}">Accueil</a>
-                    <a class="nav-link" href="{{ path('presentation_index') }}">Présentation</a>
-                    <a class="nav-link" href="{{ path('candidate_index') }}">Candidature</a>
-                    <a class="nav-link" href="{{ path('contact_index') }}">Contact</a>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+<nav class="container navbar navbar-expand-xl navbar-dark" style="background: linear-gradient(90deg, #343a40, #212529);">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path('home_index') }}">Fablab Électron</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav me-auto">
+                <a class="nav-link active" href="{{ path('home_index') }}">Accueil</a>
+                <a class="nav-link" href="{{ path('presentation_index') }}">Présentation</a>
+                <a class="nav-link" href="{{ path('candidate_index') }}">Candidature</a>
+                <a class="nav-link" href="{{ path('contact_index') }}">Contact</a>
+            </div>
+            <div class="navbar-nav">
+                {% if app.user %}
+                    <a class="nav-link" href="{{ path('login_logout') }}">Se déconnecter</a>
+                {% else %}
+                    <a class="nav-link" href="{{ path('login_index') }}">Se connecter</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+{# Flash messages / Alert handling #}
+<div class="container mt-4">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {# Error handling for exceptions in dev environment #}
+    {% if app.environment == 'dev' and app.debug and app.request.attributes.get('_route') != 'error_404' %}
+        {% block error_message %}
+            {% if app.request.attributes.get('_error') %}
+                <div class="alert alert-danger">
+                    <h4 class="alert-heading">An error occurred</h4>
+                    <p>{{ app.request.attributes.get('_error').message }}</p>
+                    <hr>
+                    <p class="mb-0">Check your logs for more information.</p>
                 </div>
-                <div class="navbar-nav">
-                    {% if app.user %}
-                        <a class="nav-link" href="#">Se déconnecter</a>
-                    {% else %}
-                        <a class="nav-link" href="{{ path('login_index') }}">Se connecter</a>
-                    {% endif %}
+            {% endif %}
+        {% endblock %}
+    {% endif %}
+</div>
+
+{% block body %}{% endblock %}
+
+<footer class="bg-dark text-white mt-5 py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Fablab Électron</h5>
+                <p>Un laboratoire d'excellence pour les chercheurs en robotique de demain.</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Liens rapides</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{{ path('home_index') }}" class="text-white">Accueil</a></li>
+                    <li><a href="{{ path('presentation_index') }}" class="text-white">Présentation</a></li>
+                    <li><a href="{{ path('candidate_index') }}" class="text-white">Candidature</a></li>
+                    <li><a href="{{ path('contact_index') }}" class="text-white">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Suivez-nous</h5>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
                 </div>
             </div>
         </div>
-    </nav>
-
-    {% block body %}{% endblock %}
-
-    <footer class="bg-dark text-white mt-5 py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Fablab Électron</h5>
-                    <p>Un laboratoire d'excellence pour les chercheurs en robotique de demain.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Liens rapides</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ path('home_index') }}" class="text-white">Accueil</a></li>
-                        <li><a href="{{ path('presentation_index') }}" class="text-white">Présentation</a></li>
-                        <li><a href="{{ path('candidate_index') }}" class="text-white">Candidature</a></li>
-                        <li><a href="{{ path('contact_index') }}" class="text-white">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Suivez-nous</h5>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <small>&copy; {{ "now"|date("Y") }} Association One-Baram. Tous droits réservés.</small>
-            </div>
+        <hr>
+        <div class="text-center">
+            <small>&copy; {{ "now"|date("Y") }} Association One-Baram. Tous droits réservés.</small>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    </body>
+</body>
 </html>

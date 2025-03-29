@@ -14,7 +14,7 @@ class CandidateProfile
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'yes', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'adminProfile', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]

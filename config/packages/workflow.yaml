@@ -1,0 +1,25 @@
+framework:
+  workflows:
+    registration:
+      type: 'state_machine'
+      marking_store:
+        type: 'method'
+        property: 'currentPlace'
+      supports:
+        - App\Entity\RegistrationWorkflow
+      initial_marking: registered
+      places:
+        - registered
+        - email_validation_sent
+        - email_validated
+        - completed
+      transitions:
+        send_validation_email:
+          from: registered
+          to: email_validation_sent
+        email_validated:
+          from: email_validation_sent
+          to: email_validated
+        complete_registration:
+          from: email_validated
+          to: completed

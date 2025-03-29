@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation de votre compte Fablab Électron</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .link {
+            word-break: break-all;
+            color: #1a73e8;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+        .expiration {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Fablab Électron</h1>
+        <p>Validation de votre adresse email</p>
+    </div>
+
+    <div class="content">
+        <p>Bonjour {{ user.firstName }},</p>
+
+        {% if isResend is defined and isResend %}
+            <p>Vous avez demandé un nouveau lien de validation pour votre compte Fablab Électron. Veuillez cliquer sur le bouton ci-dessous pour valider votre adresse email :</p>
+        {% else %}
+            <p>Merci de votre inscription à Fablab Électron. Pour finaliser la création de votre compte, veuillez valider votre adresse email en cliquant sur le bouton ci-dessous :</p>
+        {% endif %}
+
+        <div style="text-align: center;">
+            <a href="{{ validationLink }}" class="button">Valider mon email</a>
+        </div>
+
+        <p>Si le bouton ne fonctionne pas, vous pouvez aussi copier et coller le lien suivant dans votre navigateur :</p>
+
+        <p class="link">{{ validationLink }}</p>
+
+        <div class="expiration">
+            <p>Ce lien de validation expire le {{ expirationDate }}. Après cette date, vous devrez demander un nouveau lien de validation.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
+        <p>&copy; {{ "now"|date("Y") }} Fablab Électron. Tous droits réservés.</p>
+    </div>
+</div>
+</body>
+</html>

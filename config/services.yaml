@@ -1,12 +1,12 @@
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    # Configure the from email address for the application
+    app.mailer_from_email: '%env(MAILER_FROM_EMAIL)%'
 
 services:
-    # default configuration for services in *this* file
+    # default configuration for services in this file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
@@ -20,5 +20,9 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # Configure the EmailService with the from email parameter
+    App\Service\EmailService:
+        arguments:
+            $fromEmail: '%app.mailer_from_email%'
+
+    # Add more service configurations here as needed
