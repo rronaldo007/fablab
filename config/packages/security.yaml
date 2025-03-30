@@ -11,6 +11,13 @@ security:
                 class: App\Entity\User
                 property: email
 
+    # Define role hierarchy - allows higher roles to inherit permissions
+    role_hierarchy:
+        ROLE_SUPER_ADMINISTRATOR: [ROLE_ADMINISTRATOR, ROLE_JURY, ROLE_CANDIDATE]
+        ROLE_ADMINISTRATOR: [ROLE_JURY, ROLE_CANDIDATE]
+        ROLE_JURY: [ROLE_CANDIDATE]
+        ROLE_CANDIDATE: []
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -36,32 +43,34 @@ security:
                 path: login_logout
                 target: home_index
                 invalidate_session: true
-                clear_site_data: ['cookies', 'storage']  # More targeted clearing for better performance
-
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+                clear_site_data: ['cookies', 'storage']
 
     # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/candidate, roles: PUBLIC_ACCESS }
-        - { path: ^/presentation, roles: PUBLIC_ACCESS}
-        - { path: ^/contact, roles: PUBLIC_ACCESS}
-        - { path: ^/register, roles: PUBLIC_ACCESS}
-        - { path: ^/login, roles: PUBLIC_ACCESS}
+        # Admin routes
+        - { path: ^/admin/super, roles: ROLE_SUPER_ADMINISTRATOR }
+        - { path: ^/admin, roles: ROLE_ADMINISTRATOR }
+
+        # Jury routes
+        - { path: ^/jury, roles: ROLE_JURY }
+
+        # Candidate routes - protected but accessible to candidates and above
+        - { path: ^/candidate/profile, roles: ROLE_CANDIDATE }
+        - { path: ^/candidate/applications, roles: ROLE_CANDIDATE }
+
+        # Public routes - accessible to anyone
+        - { path: ^/candidate$, roles: PUBLIC_ACCESS }
+        - { path: ^/candidate/start_candidate, roles: ROLE_CANDIDATE }
+
+        - { path: ^/presentation, roles: PUBLIC_ACCESS }
+        - { path: ^/contact, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/$, roles: PUBLIC_ACCESS }
 
 when@test:
     security:
         password_hashers:
-            # By default, password hashers are resource intensive and take time. This is
-            # important to generate secure password hashes. In tests however, secure hashes
-            # are not important, waste resources and increase test times. The following
-            # reduces the work factor to the lowest possible values.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
                 algorithm: auto
                 cost: 4 # Lowest possible value for bcrypt

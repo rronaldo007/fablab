@@ -23,3 +23,38 @@ framework:
         complete_registration:
           from: email_validated
           to: completed
+
+    candidate_application:
+      type: 'state_machine'
+      marking_store:
+        type: 'method'
+        property: 'currentState'
+      supports:
+        - App\Entity\CandidateProfile
+      initial_marking: step2_submitted
+      places:
+        # Step 2 states
+        - step2_submitted
+        - step2_approved
+        - step2_rejected
+        # Final status
+        - application_selected
+        - application_rejected
+      transitions:
+        # Step 2 approval/rejection
+        approve_step2:
+          from: step2_submitted
+          to: step2_approved
+        reject_step2:
+          from: step2_submitted
+          to: step2_rejected
+        reconsider_step2:
+          from: step2_rejected
+          to: step2_approved
+        # Final selection
+        select_candidate:
+          from: step2_approved
+          to: application_selected
+        reject_candidate:
+          from: step2_approved
+          to: application_rejected

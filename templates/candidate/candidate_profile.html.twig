@@ -1,0 +1,143 @@
+{# templates/candidate/profile_step2.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidature - Étape 2 | Electron Fablab{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <!-- Main card -->
+                <div class="card shadow border-0 rounded-3 mb-4">
+                    <div class="card-header bg-primary text-white py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="h4 mb-0">Formulaire de candidature - Étape 2</h2>
+                            <span class="badge bg-white text-primary px-3 py-2">2/3</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <!-- Welcome alert -->
+                        <div class="alert alert-info bg-light border-start border-info border-4 rounded-3 mb-4">
+                            <p class="mb-0"><strong>Bienvenue, {{ user.firstName }} {{ user.lastName }}!</strong></p>
+                            <p class="mb-0">Veuillez compléter cette seconde étape de votre candidature en remplissant tous les champs ci-dessous.</p>
+                        </div>
+
+                        <!-- Form start -->
+                        {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+                        <!-- Personal information section -->
+                        <h5 class="border-bottom border-2 pb-2 mb-4 text-primary">Informations personnelles</h5>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    {{ form_label(form.date_of_birth, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.date_of_birth, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-3', 'placeholder': 'Sélectionnez votre date de naissance'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.date_of_birth) }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    {{ form_label(form.phone, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.phone, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-3', 'placeholder': '+33 6 XX XX XX XX'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.phone) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            {{ form_label(form.address, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.address, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-3', 'rows': '3', 'placeholder': 'Saisissez votre adresse complète'}}) }}
+                            <div class="invalid-feedback">{{ form_errors(form.address) }}</div>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            {{ form_label(form.nationality, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.nationality, {'attr': {'class': 'form-select form-select-lg shadow-sm rounded-3'}}) }}
+                            <div class="invalid-feedback">{{ form_errors(form.nationality) }}</div>
+                        </div>
+
+                        <!-- Academic information section -->
+                        <h5 class="border-bottom border-2 pb-2 mb-4 mt-5 text-primary">Parcours académique</h5>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    {{ form_label(form.school, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.school, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-3', 'placeholder': 'Ex: École Polytechnique'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.school) }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    {{ form_label(form.course_name, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.course_name, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-3', 'placeholder': 'Ex: Master en Robotique'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.course_name) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            {{ form_label(form.specialization, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.specialization, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-3', 'placeholder': 'Ex: Intelligence Artificielle'}}) }}
+                            <div class="invalid-feedback">{{ form_errors(form.specialization) }}</div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    {{ form_label(form.course_start_date, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.course_start_date, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-3'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.course_start_date) }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    {{ form_label(form.course_year, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                    {{ form_widget(form.course_year, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-3', 'placeholder': 'Ex: 2'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.course_year) }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Document upload section -->
+                        <h5 class="border-bottom border-2 pb-2 mb-4 mt-5 text-primary">Documents</h5>
+
+                        <div class="form-group mb-4">
+                            {{ form_label(form.studentCardFile, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            <div class="input-group">
+                                {{ form_widget(form.studentCardFile, {'attr': {'class': 'form-control form-control-lg shadow-sm rounded-start'}}) }}
+                                <span class="input-group-text bg-light"><i class="bi bi-file-earmark-pdf"></i></span>
+                            </div>
+                            <div class="form-text text-muted mt-2">Formats acceptés: PDF, JPEG, PNG (max 2 Mo)</div>
+                            <div class="invalid-feedback">{{ form_errors(form.studentCardFile) }}</div>
+                        </div>
+
+                        {{ form_rest(form) }}
+
+                        <!-- Information about next steps -->
+                        <div class="alert alert-warning bg-light border-start border-warning border-4 rounded-3 mb-4 mt-5">
+                            <h5 class="alert-heading fw-bold">Information importante</h5>
+                            <p class="mb-0">Après soumission, votre candidature sera vérifiée par un membre de notre équipe. Vous recevrez un email vous informant de la suite du processus.</p>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg shadow fw-bold py-3 rounded-3">
+                                Soumettre ma candidature - Étape 2
+                            </button>
+                        </div>
+                        {{ form_end(form) }}
+
+                    </div>
+                </div>
+
+                <!-- Footer information -->
+                <div class="text-center text-muted">
+                    <small>Une initiative de BARAM, leader français de la robotique industrielle</small>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

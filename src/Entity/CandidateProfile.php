@@ -14,7 +14,7 @@ class CandidateProfile
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'adminProfile', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'candidateProfile', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -49,6 +49,16 @@ class CandidateProfile
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $video_link = null;
+
+    // Add these new fields
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $status = null;
 
     public function getId(): ?int
     {
@@ -195,6 +205,43 @@ class CandidateProfile
     public function setVideoLink(?string $video_link): static
     {
         $this->video_link = $video_link;
+
+        return $this;
+    }
+
+    // New getters and setters for the added fields
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): static
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }
