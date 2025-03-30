@@ -1,3 +1,4 @@
+# config/packages/mercure.yaml
 mercure:
     hubs:
         default:

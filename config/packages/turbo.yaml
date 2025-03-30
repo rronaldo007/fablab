@@ -1,0 +1,4 @@
+# config/packages/turbo.yaml
+turbo:
+  broadcast:
+    enabled: false

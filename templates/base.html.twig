@@ -1,103 +1,143 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
+{% extends 'base.html.twig' %}
 
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
-    {% endblock %}
-</head>
-<body>
-<nav class="container navbar navbar-expand-xl navbar-dark" style="background: linear-gradient(90deg, #343a40, #212529);">
-    <div class="container">
-        <a class="navbar-brand" href="{{ path('home_index') }}">Fablab Électron</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav me-auto">
-                <a class="nav-link active" href="{{ path('home_index') }}">Accueil</a>
-                <a class="nav-link" href="{{ path('presentation_index') }}">Présentation</a>
-                <a class="nav-link" href="{{ path('candidate_index') }}">Candidature</a>
-                <a class="nav-link" href="{{ path('contact_index') }}">Contact</a>
-            </div>
-            <div class="navbar-nav">
-                {% if app.user %}
-                    <a class="nav-link" href="{{ path('login_logout') }}">Se déconnecter</a>
-                {% else %}
-                    <a class="nav-link" href="{{ path('login_index') }}">Se connecter</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</nav>
+{% block title %}Mon Profil Candidat{% endblock %}
 
-{# Flash messages / Alert handling #}
-<div class="container mt-4">
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="card-body container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
-    {# Error handling for exceptions in dev environment #}
-    {% if app.environment == 'dev' and app.debug and app.request.attributes.get('_route') != 'error_404' %}
-        {% block error_message %}
-            {% if app.request.attributes.get('_error') %}
-                <div class="alert alert-danger">
-                    <h4 class="alert-heading">An error occurred</h4>
-                    <p>{{ app.request.attributes.get('_error').message }}</p>
-                    <hr>
-                    <p class="mb-0">Check your logs for more information.</p>
+        <h3 class="d-flex justify-content-between align-items-center">
+            Informations personnelles
+            {% if user.candidateProfileForCurrentEdition is null %}
+                <a href="{{ path('candidate_start_candidate') }}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-clipboard-list me-1"></i> Ma candidature
+                </a>
+            {% endif %}
+        </h3>
+
+        <dl class="row mb-4">
+            <dt class="col-sm-3">Nom</dt>
+            <dd class="col-sm-9">{{ user.lastName }}</dd>
+
+            <dt class="col-sm-3">Prénom</dt>
+            <dd class="col-sm-9">{{ user.firstName }}</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">{{ user.email }}</dd>
+
+            {% if not no_profile %}
+                {% if profile.phone %}
+                    <dt class="col-sm-3">Téléphone</dt>
+                    <dd class="col-sm-9">{{ profile.phone }}</dd>
+                {% endif %}
+                {% if profile.address %}
+                    <dt class="col-sm-3">Adresse</dt>
+                    <dd class="col-sm-9">{{ profile.address }}</dd>
+                {% endif %}
+                {% if profile.dateOfBirth %}
+                    <dt class="col-sm-3">Date de naissance</dt>
+                    <dd class="col-sm-9">{{ profile.dateOfBirth|date('d/m/Y') }}</dd>
+                {% endif %}
+                {% if profile.nationality %}
+                    <dt class="col-sm-3">Nationalité</dt>
+                    <dd class="col-sm-9">{{ profile.nationality }}</dd>
+                {% endif %}
+            {% endif %}
+        </dl>
+
+        {% if not no_profile %}
+            <h3>Informations académiques</h3>
+            <dl class="row mb-4">
+                {% if profile.school %}
+                    <dt class="col-sm-3">École/Université</dt>
+                    <dd class="col-sm-9">{{ profile.school }}</dd>
+                {% endif %}
+                {% if profile.courseName %}
+                    <dt class="col-sm-3">Formation</dt>
+                    <dd class="col-sm-9">{{ profile.courseName }}</dd>
+                {% endif %}
+                {% if profile.specialization %}
+                    <dt class="col-sm-3">Spécialisation</dt>
+                    <dd class="col-sm-9">{{ profile.specialization }}</dd>
+                {% endif %}
+                {% if profile.courseStartDate %}
+                    <dt class="col-sm-3">Début de formation</dt>
+                    <dd class="col-sm-9">{{ profile.courseStartDate|date('d/m/Y') }}</dd>
+                {% endif %}
+                {% if profile.courseYear %}
+                    <dt class="col-sm-3">Année d'étude</dt>
+                    <dd class="col-sm-9">{{ profile.courseYear }}</dd>
+                {% endif %}
+            </dl>
+
+            {% if profile.studentCard %}
+                <h3>Documents</h3>
+                <dl class="row mb-4">
+                    <dt class="col-sm-3">Carte d'étudiant</dt>
+                    <dd class="col-sm-9">
+                        <a href="{{ asset('uploads/student_cards/' ~ profile.studentCard) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-id-card me-1"></i> Voir ma carte d'étudiant
+                        </a>
+                    </dd>
+                </dl>
+            {% endif %}
+
+            {% if workflow_state is defined and workflow_state %}
+                <div class="alert
+                {% if workflow_state == 'step2_rejected' %}
+                    alert-danger
+                {% elseif workflow_state in ['application_selected', 'step2_approved'] %}
+                    alert-success
+                {% else %}
+                    alert-info
+                {% endif %} mt-4">
+
+                    {% if workflow_state == 'step2_submitted' %}
+                        <h4 class="alert-heading">Candidature en cours d'examen</h4>
+                        <p>Votre candidature a été soumise et est en cours d'examen.</p>
+                    {% elseif workflow_state == 'step2_approved' %}
+                        <h4 class="alert-heading">Félicitations !</h4>
+                        <p>Votre candidature a été approuvée.</p>
+                    {% elseif workflow_state == 'step2_rejected' %}
+                        <h4 class="alert-heading">Candidature refusée</h4>
+                        <p>Votre candidature a été refusée. Vous pouvez la modifier.</p>
+                        {% if can_edit %}
+                            <div class="text-center mt-3">
+                                <a href="{{ path('candidate_start_candidate') }}" class="btn btn-primary">
+                                    <i class="fas fa-edit me-1"></i> Modifier ma candidature
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% elseif workflow_state == 'application_selected' %}
+                        <h4 class="alert-heading">Candidature acceptée !</h4>
+                        <p>Nous reviendrons vers vous très bientôt.</p>
+                    {% elseif workflow_state == 'application_rejected' %}
+                        <h4 class="alert-heading">Candidature non retenue</h4>
+                        <p>Nous vous encourageons à retenter une prochaine fois.</p>
+                    {% endif %}
                 </div>
             {% endif %}
-        {% endblock %}
-    {% endif %}
-</div>
-
-{% block body %}{% endblock %}
-
-<footer class="bg-dark text-white mt-5 py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Fablab Électron</h5>
-                <p>Un laboratoire d'excellence pour les chercheurs en robotique de demain.</p>
-            </div>
-            <div class="col-md-4">
-                <h5>Liens rapides</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{{ path('home_index') }}" class="text-white">Accueil</a></li>
-                    <li><a href="{{ path('presentation_index') }}" class="text-white">Présentation</a></li>
-                    <li><a href="{{ path('candidate_index') }}" class="text-white">Candidature</a></li>
-                    <li><a href="{{ path('contact_index') }}" class="text-white">Contact</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h5>Suivez-nous</h5>
-                <div class="d-flex gap-3">
-                    <a href="#" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
+        {% else %}
+            <div class="alert alert-info mt-4">
+                <h4 class="alert-heading">Vous n'avez pas encore de profil candidat</h4>
+                <p>Pour postuler, cliquez sur le bouton ci-dessous.</p>
+                <div class="text-center mt-3">
+                    <a href="{{ path('candidate_start_candidate') }}" class="btn btn-primary">
+                        <i class="fas fa-user-plus me-1"></i> Commencer ma candidature
+                    </a>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="text-center">
-            <small>&copy; {{ "now"|date("Y") }} Association One-Baram. Tous droits réservés.</small>
-        </div>
+        {% endif %}
     </div>
-</footer>
-
-</body>
-</html>
+{% endblock %}

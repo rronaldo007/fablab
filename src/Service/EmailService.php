@@ -191,4 +191,69 @@ class EmailService
             return false;
         }
     }
+
+    /**
+     * Send a thank you email after completing Step 2 of the application
+     *
+     * @param string $email The candidate's email address
+     * @param string $firstName The candidate's first name
+     * @return bool Whether the email was sent successfully
+     */
+    public function sendThankYouForStep2Email(string $email, string $firstName): bool
+    {
+        $subject = 'Merci pour votre candidature - Étape 2 complétée';
+        $template = 'emails/candidate/step2_completed.html.twig';
+        $context = [
+            'firstName' => $firstName,
+            'date' => new \DateTime(),
+        ];
+
+        return $this->trySendEmail(
+            $email,
+            $subject,
+            $template,
+            $context
+        );
+    }
+
+    /**
+     * Notify candidate of successful verification (accepted)
+     */
+    public function sendStep2AcceptedEmail(string $email, string $firstName): bool
+    {
+        $subject = 'Votre candidature a été acceptée !';
+        $template = 'emails/candidate/step2_accepted.html.twig';
+        $context = [
+            'firstName' => $firstName,
+            'date' => new \DateTime(),
+        ];
+
+        return $this->trySendEmail(
+            $email,
+            $subject,
+            $template,
+            $context
+        );
+    }
+
+    /**
+     * Notify candidate of failed verification (rejected)
+     */
+    public function sendStep2RejectedEmail(string $email, string $firstName): bool
+    {
+        $subject = 'Votre candidature n’a pas pu être validée';
+        $template = 'emails/candidate/step2_rejected.html.twig';
+        $context = [
+            'firstName' => $firstName,
+            'date' => new \DateTime(),
+        ];
+
+        return $this->trySendEmail(
+            $email,
+            $subject,
+            $template,
+            $context
+        );
+    }
+
 }

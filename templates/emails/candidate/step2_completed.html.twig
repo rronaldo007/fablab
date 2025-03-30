@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidature - Étape 2 complétée</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: #3498db;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 0;
+        }
+        .content {
+            background: #f7f9fc;
+            padding: 25px 30px;
+            border-left: 1px solid #e1e8ed;
+            border-right: 1px solid #e1e8ed;
+            border-bottom: 1px solid #e1e8ed;
+            border-radius: 0 0 5px 5px;
+        }
+        h1 {
+            color: #2980b9;
+            margin-top: 0;
+            font-size: 22px;
+        }
+        .highlight {
+            background-color: #fff8dc;
+            padding: 15px;
+            border-left: 4px solid #ffd700;
+            margin: 25px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            color: #777;
+        }
+        .btn {
+            display: inline-block;
+            background: #2ecc71;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>Confirmation de candidature</h2>
+</div>
+
+<div class="content">
+    <h1>Merci pour votre candidature, {{ firstName }}!</h1>
+
+    <p>
+        Nous avons bien reçu les informations de l'étape 2 de votre candidature
+        le <strong>{{ date|date('d/m/Y à H:i') }}</strong>.
+    </p>
+
+    <div class="highlight">
+        <p>
+            <strong>✅ Étape complétée avec succès!</strong><br>
+            Notre équipe va maintenant examiner votre dossier et vérifier les informations fournies.
+        </p>
+    </div>
+
+    <p>
+        Vous recevrez prochainement un email vous informant des prochaines étapes.
+        En attendant, vous pouvez consulter l'état de votre candidature à tout moment
+        en vous connectant à votre espace personnel.
+    </p>
+
+    <a href="{{ url('profile') }}" class="btn">Accéder à mon espace</a>
+
+    <p>
+        Si vous avez des questions, n'hésitez pas à nous contacter par email.
+    </p>
+
+    <p>
+        Cordialement,<br>
+        <strong>L'équipe de recrutement</strong>
+    </p>
+</div>
+
+<div class="footer">
+    <p>Cet email a été envoyé automatiquement. Merci de ne pas y répondre directement.</p>
+    <p>© {{ "now"|date("Y") }} FabLab - Tous droits réservés</p>
+</div>
+</body>
+</html>
